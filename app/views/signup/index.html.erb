@@ -1,0 +1,52 @@
+<h1>SIGN UP</h1>
+
+<%= form_for :user, url: signup_index_path, :html => { :multipart => true } do |f| %>
+
+<% if @user != nil %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@user.errors.count, "error") %> prohibited
+          this account from being created:
+        </h2>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+<% if @profile != nil %>
+  <% if @profile.errors.any? %>
+    <% @profile.errors.full_messages.each do |m| %>
+      <div><%= m %></div>
+    <% end %>
+  <% end %>
+<% end %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation %>
+  </p>
+
+  <%= f.file_field :avatar %>
+
+  <p>
+    <%= f.submit :Create_Account %>
+  </p>
+
+<% end %>

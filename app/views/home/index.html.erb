@@ -1,0 +1,38 @@
+<h1>This is Home</h1>
+<h2 id="phrase"></h2>
+<table>
+  <tr>
+    <td><%= image_tag current_user.profile.avatar.url(:thumb) %></td>
+    <td>Welcome, <%= current_user.name %>!</td>
+    <td><%= button_to "Logout", logout_path, class: "myButton", :method => :get  %></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td>
+      <div>
+          <%= form_for :article, :url => home_index_path, :html => { :multipart => true } do |article| %>
+          <div class="fileUpload btn btn-primary">
+            <span>choose photo</span>
+            <%= article.file_field :avatar, class: "upload"%>
+          </div>
+          <div><%= article.text_area :body %></div>
+          <div><%= article.submit :upload, class: "myButton" %></div>
+          <% end %>
+      </div>
+    </td>
+    <td id=article_block>
+
+    </td>
+    <td>
+      <!-- <div>Find your friends<div>
+      <input id="find_friendname", type="text"/> -->
+      Mutual Friend
+      <div id="mutual"></div>
+      Uncomfirmed Friend
+      <div id="unconfirmed"></div>
+      Not Friend
+      <div id="not"></div>
+    </td>
+</tr>
+</table>

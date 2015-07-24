@@ -1,0 +1,36 @@
+
+
+<% if @articles != nil %>
+<table>
+  <% @articles.each do |article| %>
+    <tr>
+
+      <div class="article">
+        <div>
+          <%= image_tag article_owner(article).profile.avatar.url(:thumb) %><%= article_owner(article).name %><% if current_user==article_owner(article) %><%= link_to 'Edit', edit_home_path(article) %><%= link_to 'Destroy', home_path(article), method: :delete, id: "destroy", data: { confirm: 'Are you sure?' } %><% end %>
+        </div>
+        <div>
+          <%= image_tag article.avatar.url(:thumb) %>
+          <div>Content:</div><div><%= article.body %></div>
+        </div>
+      </div>
+      <div class="article_comments">
+        <% if article_comments(article) != nil %>
+          <% article_comments(article).each do |comment|%>
+            <div>
+            <%= image_tag comments_owner(comment).profile.avatar.url(:thumb) %><%= comments_owner(comment).name %> : <%= comment.body %><% if current_user == comments_owner(comment) %><%= link_to 'Destroy', comment_path(comment), method: :delete, id: "destroy", data: { confirm: 'Are you sure?' } %><% end %>
+            </div>
+          <% end %>
+        <% end %>
+        <div>
+        <%= form_for :comment, :url => comment_index_path do |f| %>
+        <%= f.hidden_field :article_id, :value => article.id %>
+        <%= f.text_field :body, class: "comment_field" %>
+        <%= f.submit :enter %>
+        <% end %>
+        </div>
+      </div>
+    <tr>
+  <% end %>
+</table>
+<% end %>
